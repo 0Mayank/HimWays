@@ -35,7 +35,7 @@ func CreateBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusBadRequest,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -48,7 +48,7 @@ func CreateBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusBadRequest,
 					Message: "validation error",
-					Data:    map[string]interface{}{"data": validationErr.Error()},
+					Body:    map[string]interface{}{"data": validationErr.Error()},
 				},
 			)
 			return
@@ -68,7 +68,7 @@ func CreateBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -79,12 +79,13 @@ func CreateBus() gin.HandlerFunc {
 			responses.BusResponse{
 				Status:  http.StatusCreated,
 				Message: "success",
-				Data:    map[string]interface{}{"data": result},
+				Body:    map[string]interface{}{"data": result},
 			},
 		)
 	}
 }
 
+// TODO: search for bus which pass through this route??
 func SearchBus() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		ctx, cancel := context.WithTimeout(context.Background(), timeoutDuration)
@@ -121,7 +122,7 @@ func SearchBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -133,7 +134,7 @@ func SearchBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -144,7 +145,7 @@ func SearchBus() gin.HandlerFunc {
 			responses.BusResponse{
 				Status:  http.StatusOK,
 				Message: "success",
-				Data:    map[string]interface{}{"data": buses},
+				Body:    map[string]interface{}{"data": buses},
 			},
 		)
 	}
@@ -167,7 +168,7 @@ func EditBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusBadRequest,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -194,7 +195,7 @@ func EditBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -209,7 +210,7 @@ func EditBus() gin.HandlerFunc {
 					responses.BusResponse{
 						Status:  http.StatusInternalServerError,
 						Message: "error",
-						Data:    map[string]interface{}{"data": err.Error()},
+						Body:    map[string]interface{}{"data": err.Error()},
 					},
 				)
 				return
@@ -221,7 +222,7 @@ func EditBus() gin.HandlerFunc {
 			responses.BusResponse{
 				Status:  http.StatusOK,
 				Message: "success",
-				Data:    map[string]interface{}{"data": updatedBus},
+				Body:    map[string]interface{}{"data": updatedBus},
 			},
 		)
 	}
@@ -244,7 +245,7 @@ func GetBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -255,7 +256,7 @@ func GetBus() gin.HandlerFunc {
 			responses.BusResponse{
 				Status:  http.StatusOK,
 				Message: "success",
-				Data:    map[string]interface{}{"data": bus},
+				Body:    map[string]interface{}{"data": bus},
 			},
 		)
 	}
@@ -276,7 +277,7 @@ func DeleteBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusInternalServerError,
 					Message: "error",
-					Data:    map[string]interface{}{"data": err.Error()},
+					Body:    map[string]interface{}{"data": err.Error()},
 				},
 			)
 			return
@@ -288,7 +289,7 @@ func DeleteBus() gin.HandlerFunc {
 				responses.BusResponse{
 					Status:  http.StatusNotFound,
 					Message: "error",
-					Data:    map[string]interface{}{"data": "Bus with specified id not found!"},
+					Body:    map[string]interface{}{"data": "Bus with specified id not found!"},
 				},
 			)
 			return
@@ -299,7 +300,7 @@ func DeleteBus() gin.HandlerFunc {
 			responses.BusResponse{
 				Status:  http.StatusOK,
 				Message: "success",
-				Data:    map[string]interface{}{"data": "Bus deleted successfully!"},
+				Body:    map[string]interface{}{"data": "Bus deleted successfully!"},
 			},
 		)
 	}
