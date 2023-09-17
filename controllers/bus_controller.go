@@ -225,3 +225,37 @@ func EditBus() gin.HandlerFunc {
 		)
 	}
 }
+
+func GetBus() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), timeoutDuration)
+		defer cancel()
+
+		busId := c.Param("busId")
+		var bus models.Bus
+
+		objId, _ := primitive.ObjectIDFromHex(busId)
+
+		err := busCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&bus)
+		if err != nil {
+			c.JSON(
+				http.StatusInternalServerError,
+				responses.BusResponse{
+					Status:  http.StatusInternalServerError,
+					Message: "error",
+					Data:    map[string]interface{}{"data": err.Error()},
+				},
+			)
+			return
+		}
+
+		c.JSON(
+			http.StatusOK,
+			responses.BusResponse{
+				Status:  http.StatusOK,
+				Message: "success",
+				Data:    map[string]interface{}{"data": bus},
+			},
+		)
+	}
+}
