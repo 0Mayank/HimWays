@@ -10,4 +10,5 @@ func BusRoutes(router *gin.Engine) {
 	router.GET("/bus/search", controllers.SearchBus())
 	router.PUT("/bus/:busId", controllers.EditBus())
 	router.GET("/bus/:busId", controllers.GetBus())
+	router.DELETE("/bus/:busId", controllers.DeleteBus())
 }

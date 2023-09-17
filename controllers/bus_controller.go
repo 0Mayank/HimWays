@@ -259,3 +259,47 @@ func GetBus() gin.HandlerFunc {
 		)
 	}
 }
+
+func DeleteBus() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), timeoutDuration)
+		defer cancel()
+
+		busId := c.Param("busId")
+		objId, _ := primitive.ObjectIDFromHex(busId)
+
+		result, err := busCollection.DeleteOne(ctx, bson.M{"_id": objId})
+		if err != nil {
+			c.JSON(
+				http.StatusInternalServerError,
+				responses.BusResponse{
+					Status:  http.StatusInternalServerError,
+					Message: "error",
+					Data:    map[string]interface{}{"data": err.Error()},
+				},
+			)
+			return
+		}
+
+		if result.DeletedCount < 1 {
+			c.JSON(
+				http.StatusNotFound,
+				responses.BusResponse{
+					Status:  http.StatusNotFound,
+					Message: "error",
+					Data:    map[string]interface{}{"data": "Bus with specified id not found!"},
+				},
+			)
+			return
+		}
+
+		c.JSON(
+			http.StatusOK,
+			responses.BusResponse{
+				Status:  http.StatusOK,
+				Message: "success",
+				Data:    map[string]interface{}{"data": "Bus deleted successfully!"},
+			},
+		)
+	}
+}
