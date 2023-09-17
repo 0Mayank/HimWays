@@ -55,10 +55,11 @@ func CreateBus() gin.HandlerFunc {
 		}
 
 		newBus := models.Bus{
-			Id:     primitive.NewObjectID(),
-			Number: bus.Number,
-			Plate:  bus.Plate,
-			Route:  bus.Route,
+			Id:      primitive.NewObjectID(),
+			Number:  bus.Number,
+			Plate:   bus.Plate,
+			BusType: bus.BusType,
+			Route:   bus.Route,
 		}
 
 		result, err := busCollection.InsertOne(ctx, newBus)
