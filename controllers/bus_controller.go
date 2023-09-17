@@ -112,7 +112,7 @@ func SearchBus() gin.HandlerFunc {
 			filter["type"] = busParams.BusType
 		}
 
-		cursor, err := busCollection.Find(context.TODO(), filter)
+		cursor, err := busCollection.Find(ctx, filter)
 		if err != nil {
 			c.JSON(
 				http.StatusInternalServerError,
