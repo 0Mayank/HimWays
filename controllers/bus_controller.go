@@ -202,7 +202,7 @@ func EditBus() gin.HandlerFunc {
 
 		var updatedBus models.Bus
 		if result.MatchedCount == 1 {
-			err := busCollection.FindOne(ctx, bson.M{"id": objId}).Decode(&updatedBus)
+			err := busCollection.FindOne(ctx, bson.M{"_id": objId}).Decode(&updatedBus)
 			if err != nil {
 				c.JSON(
 					http.StatusInternalServerError,
