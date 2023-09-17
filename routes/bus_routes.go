@@ -8,4 +8,5 @@ import (
 func BusRoutes(router *gin.Engine) {
 	router.POST("/bus/create", controllers.CreateBus())
 	router.GET("/bus/search", controllers.SearchBus())
+	router.PUT("/bus/:busId", controllers.EditBus())
 }
