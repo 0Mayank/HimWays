@@ -101,15 +101,15 @@ func SearchBus() gin.HandlerFunc {
 		filter := bson.D{}
 
 		if busParams.Plate != "" {
-			filter = append(filter, bson.E{"plate", busParams.Plate})
+			filter = append(filter, bson.E{Key: "plate", Value: busParams.Plate})
 		}
 
 		if busParams.Number != "" {
-			filter = append(filter, bson.E{"number", busParams.Number})
+			filter = append(filter, bson.E{Key: "number", Value: busParams.Number})
 		}
 
 		if busParams.BusType != "" {
-			filter = append(filter, bson.E{"type", busParams.BusType})
+			filter = append(filter, bson.E{Key: "type", Value: busParams.BusType})
 		}
 
 		cursor, err := busCollection.Find(context.TODO(), filter)
