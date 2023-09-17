@@ -7,5 +7,4 @@ type Bus struct {
 	Plate   string             `bson:"plate"  json:"plate"  validate:"required"`
 	Number  string             `bson:"number" json:"number" validate:"required"`
 	BusType string             `bson:"type"   json:"type"   validate:"required"`
-	Route   []int              `bson:"route"  json:"route"  validate:"required"`
 }
