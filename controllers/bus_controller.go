@@ -59,7 +59,6 @@ func CreateBus() gin.HandlerFunc {
 			Number:  bus.Number,
 			Plate:   bus.Plate,
 			BusType: bus.BusType,
-			Route:   bus.Route,
 		}
 
 		result, err := busCollection.InsertOne(ctx, newBus)
@@ -184,8 +183,8 @@ func EditBus() gin.HandlerFunc {
 			update["number"] = bus.Number
 		}
 
-		if len(bus.Route) > 0 {
-			update["Route"] = bus.Route
+		if bus.BusType != "" {
+			update["type"] = bus.BusType
 		}
 
 		result, err := busCollection.UpdateOne(ctx, bson.M{"_id": objId}, bson.M{"$set": update})
