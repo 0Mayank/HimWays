@@ -51,6 +51,7 @@ func CreateBus() gin.HandlerFunc {
 					Data:    map[string]interface{}{"data": validationErr.Error()},
 				},
 			)
+			return
 		}
 
 		newBus := models.Bus{
